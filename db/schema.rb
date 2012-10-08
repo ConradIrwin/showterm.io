@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121008062224) do
+ActiveRecord::Schema.define(:version => 20121008063803) do
 
   create_table "scripts", :force => true do |t|
     t.string   "slug"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(:version => 20121008062224) do
     t.string   "ip_address"
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
-    t.integer  "columns",    :default => 80
+    t.integer  "cols",       :default => 80
   end
 
   add_index "scripts", ["slug"], :name => "index_scripts_on_slug"
