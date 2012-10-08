@@ -4,9 +4,12 @@
     window.timingfile = <%=raw @script.timingfile.to_json.gsub("/", "\\u002f") %>;
     window.columns = <%=raw (@script.cols || 80).to_json.gsub("/", "\\u002f") %>;
 </script>
+<style>
+    body { overflow: hidden }
+</style>
 
 <div class="controls">
     <a href="#slow">slow</a> |
     <a href="#fast">fast</a> |
-    <a href="#stop">race</a>
+    <a href="#stop">stop</a>
 </div>

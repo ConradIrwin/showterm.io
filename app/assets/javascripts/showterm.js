@@ -8,37 +8,55 @@ $(function () {
         script = lines.slice(1).join("\n"),
         start = 0,
         position = 0,
-        terminal = new Terminal(window.columns, Math.floor(window.innerHeight / 15)),
-        output = [];
-
-    terminal.open();
+        stopped = false,
+        terminal;
 
     function addToTerminal(string) {
         terminal.write(string);
     }
 
+    function reset() {
+        if (terminal) {
+            $(terminal.element).remove();
+        }
+
+        terminal = new Terminal(window.columns, Math.floor(window.innerHeight / 15));
+        terminal.refresh();
+        terminal.open();
+        Terminal.focus = null;
+        stopped = false;
+        position = start = 0;
+
+    }
+
     function tick() {
-        var velocity;
+        if (window.location.hash === '#stop') {
+            addToTerminal(script.substr(start));
+            stopped = true;
+            return;
+        }
+
+        var delay = window.location.hash === '#fast' ? 500 : 1000;
         addToTerminal(script.substr(start, timings[position][1]));
         start += timings[position][1];
         position += 1;
 
-        if (window.location.hash === '#fast') {
-            velocity = 500;
-        } else if (window.location.hash === '#stop') {
-            velocity = 0;
+        if (position + 1 === timings.length) {
+            stopped = true;
         } else {
-            velocity = 1000;
-        }
-
-        if (position + 1 < timings.length) {
-            window.setTimeout(tick, timings[position + 1][0] * velocity);
+            window.setTimeout(tick, timings[position + 1][0] * delay);
         }
     }
 
     $('.controls a').click(function () {
-        window.setTimeout(setSpeed, 50);
+        window.location.hash = this.href.split('#')[1];
+        if (stopped) {
+            reset();
+            tick();
+        }
+        return false;
     });
 
+    reset();
     tick();
 });
