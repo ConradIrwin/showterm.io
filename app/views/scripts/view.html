@@ -1,0 +1,4 @@
+<script>
+    window.scriptfile = <%=raw @script.scriptfile.to_json.gsub("/", "\\u002f") %>;
+    window.timingfile = <%=raw @script.timingfile.to_json.gsub("/", "\\u002f") %>;
+</script>
