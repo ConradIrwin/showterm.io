@@ -1,14 +1,42 @@
-<h1>showterm.io</h1>
+<div style="margin-left: 20px; max-width: 800px; margin:auto">
+    <h1>showterm.io</h1>
 
-<p>Allows you to easily record a console session and upload it for anyone to share.</p>
+    <div style="float: right">
+        <a
+            href="https://twitter.com/share?url=http://showterm.herokuapp.com/&via=ConradIrwin&text=showterm — " class="twitter-share-button" data-lang="en">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
 
-<h2>Credits</h2>
+    <p>It's Showtime in a terminal near you! Put on your best colours,<br/>
+        resize to 80 columns, and let rip!</p>
 
-<ul>
-    <li>term.js from Christopher Jeffrey's awesome <a href="https://github.com/chjj/tty.js">tty.js</a></li>
-    <li><a href="http://unixhelp.ed.ac.uk/CGI/man-cgi?script">script</a> the long-forgotten UNIX tool for recording terminal sessions.</li>
-    <li>A bit of glue, jQuery and rails, by me <a href="http://cirw.in">Conrad Irwin</a></li>
-</ul>
+    <p>Unlike traditional screen-casting, the watcher can copy-paste<br/>
+        directly from your terminal (try with the link below).</p>
 
-<p>NOTE: if your terminal looks odd when recorded, try resizing it to 80 columns and trying again.</p>
+    <p>Installation instructions (`gem install showterm`) have been showtermed for your enjoyment:</p>
+
+    <iframe src="https://showterm.herokuapp.com/b6803679cb1c9fbcf667cb7cfe8f605e3ce1fe03"
+        width="660" height="360" style="border: 1px solid #444"></iframe>
+
+    <h2>Embedding</h2>
+
+    <p>You're welcome to embed showterms in your own website.<br/>
+        Simply record as usual, and embed an iframe with width=640px (for the lulz)<br/>
+
+        <div style="border: 1px solid #AAA; font-size: small; width: 80%; padding: 10px">
+
+            &lt;iframe src="https://showterm.herokuapp.com/b6803679cb1c9fbcf667cb7cfe8f605e3ce1fe03"
+                width="640" height="480">&lt;/iframe>
+        </div>
+
+    <h2>Credits</h2>
+
+    <ul>
+        <li>term.js from Christopher Jeffrey's awesome <a href="https://github.com/chjj/tty.js">tty.js</a></li>
+        <li><a href="http://unixhelp.ed.ac.uk/CGI/man-cgi?script">script</a> the long-forgotten UNIX tool for recording terminal sessions.</li>
+        <li>A bit of <a href="https://github.com/ConradIrwin/showterm">client-side</a> and <a
+                href="https://github.com/ConradIrwin/showterm.io">server-side</a> glue by me: <a href="http://cirw.in">Conrad Irwin</a></li>
+    </ul>
+
+    <p>NOTE: if your terminal looks odd when recorded, try resizing it to 80 columns and trying again.</p>
 
