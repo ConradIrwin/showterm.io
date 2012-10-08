@@ -1,6 +1,7 @@
 /*global window,document,console, $,Terminal */
 /*jslint regexp: false*/
 $(function () {
+    Terminal.bindKeys = function () {};
     var timings = window.timingfile.trim().split("\n").map(function (line) {
         return line.split(" ").map(Number);
     }),
