@@ -15,10 +15,7 @@ $(function () {
 
     function addToTerminal(string) {
         terminal.write(string);
-        console.log(string);
     }
-
-    console.log(output);
 
     function tick() {
         addToTerminal(script.substr(start, timings[position][1]));
