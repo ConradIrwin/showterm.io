@@ -3,7 +3,7 @@ class ScriptsController < ApplicationController
     render :text => 'No scriptfile given', :status => 400 unless params[:scriptfile]
     render :text => 'No timingfile given', :status => 400 unless params[:timingfile]
 
-    slug = Digest::SHA1.hexdigest([params[:scriptfile], params[:timingfile]].inspect)
+    slug = Digest::SHA1.hexdigest([params[:scriptfile], params[:timingfile]].inspect)[0..20]
 
     Script.create(:scriptfile => params[:scriptfile],
                   :timingfile => params[:timingfile],
@@ -12,7 +12,7 @@ class ScriptsController < ApplicationController
                   :ip_address => env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR'])
 
 
-    render :text => 'https://showterm.herokuapp.com/' + CGI.escape(slug)
+    render :text => 'http://showterm.io/' + CGI.escape(slug)
   end
 
   def view
