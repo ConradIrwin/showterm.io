@@ -18,9 +18,21 @@ a {
 }
 
 .controls {
+    opacity: 0.8;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
     position: fixed;
     right: 0;
     bottom: 0;
+
+  .slider {
+    height: 5px;
+    width: 200px;
+    margin-right: 10px;
+    display: inline-block;
+
+    a {
+      height: 13px;
+    }
+  }
 }

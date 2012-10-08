@@ -9,6 +9,7 @@ $(function () {
         start = 0,
         position = 0,
         stopped = false,
+        paused = false,
         terminal;
 
     function addToTerminal(string) {
@@ -32,7 +33,12 @@ $(function () {
     function tick() {
         if (window.location.hash === '#stop') {
             addToTerminal(script.substr(start));
+            position = timings.length - 1;
+            $(".controls .slider").slider("value", position);
             stopped = true;
+            return;
+        }
+        if (paused) {
             return;
         }
 
@@ -40,6 +46,7 @@ $(function () {
         addToTerminal(script.substr(start, timings[position][1]));
         start += timings[position][1];
         position += 1;
+        $(".controls .slider").slider("value", position);
 
         if (position + 1 === timings.length) {
             stopped = true;
@@ -48,8 +55,29 @@ $(function () {
         }
     }
 
-    $('.controls a').click(function () {
+    $('.controls .slider').slider({
+        min: 0,
+        max: timings.length - 1,
+        slide: function () {
+            reset();
+            paused = true;
+            position = $(".controls .slider").slider("value");
+            start = 0;
+            timings.slice(0, position).forEach(function (timing) {
+                start += timing[1];
+            });
+            window.location.hash = position;
+
+            addToTerminal(script.substr(0, start));
+        }
+    });
+
+    $('.controls > a').click(function () {
         window.location.hash = this.href.split('#')[1];
+        if (paused) {
+            paused = false;
+            tick();
+        }
         if (stopped) {
             reset();
             tick();
