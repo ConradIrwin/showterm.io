@@ -8,7 +8,7 @@ $(function () {
         script = lines.slice(1).join("\n"),
         start = 0,
         position = 0,
-        terminal = new Terminal(window.columns, 80),
+        terminal = new Terminal(window.columns, Math.floor(window.innerHeight / 15)),
         output = [];
 
     terminal.open();
