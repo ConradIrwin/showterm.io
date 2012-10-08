@@ -18,14 +18,27 @@ $(function () {
     }
 
     function tick() {
+        var velocity;
         addToTerminal(script.substr(start, timings[position][1]));
         start += timings[position][1];
         position += 1;
 
+        if (window.location.hash === '#fast') {
+            velocity = 500;
+        } else if (window.location.hash === '#stop') {
+            velocity = 0;
+        } else {
+            velocity = 1000;
+        }
+
         if (position + 1 < timings.length) {
-            window.setTimeout(tick, timings[position + 1][0] * 1000);
+            window.setTimeout(tick, timings[position + 1][0] * velocity);
         }
     }
+
+    $('.controls a').click(function () {
+        window.setTimeout(setSpeed, 50);
+    });
 
     tick();
 });
