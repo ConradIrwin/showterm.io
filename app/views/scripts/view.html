@@ -1,4 +1,5 @@
 <script>
+    // FIXME... just using 'j' leaves everything HTML escaped too
     window.scriptfile = <%=raw @script.scriptfile.to_json.gsub("/", "\\u002f") %>;
     window.timingfile = <%=raw @script.timingfile.to_json.gsub("/", "\\u002f") %>;
 </script>

@@ -5,7 +5,7 @@ $(function () {
         return line.split(" ").map(Number);
     }),
         lines = window.scriptfile.trim().split("\n"),
-        script = lines.slice(1, lines.length - 2).join("\n"),
+        script = lines.slice(1).join("\n"),
         start = 0,
         position = 0,
         terminal = new Terminal(80, 20),
