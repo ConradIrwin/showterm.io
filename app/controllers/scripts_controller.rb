@@ -17,4 +17,7 @@ class ScriptsController < ApplicationController
   def view
     @script = Script.find_by_slug(params[:slug])
   end
+
+  def index
+  end
 end
