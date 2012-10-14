@@ -111,9 +111,6 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.33)
-    uglifier (1.3.0)
-      execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
 
 PLATFORMS
   ruby
@@ -125,4 +122,3 @@ DEPENDENCIES
   pg
   rails (= 3.2.8)
   sass-rails (~> 3.2.3)
-  uglifier (>= 1.0.3)
