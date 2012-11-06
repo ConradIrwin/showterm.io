@@ -9,6 +9,10 @@ body {
   padding: 0;
   font-family: monospace;
   white-space: nowrap;
+
+  .mainpage {
+    white-space: normal;
+  }
 }
 
 h1 {
