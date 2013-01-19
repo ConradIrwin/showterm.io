@@ -22,7 +22,7 @@ $(function () {
             $(terminal.element).remove();
         }
 
-        terminal = new Terminal(window.columns, Math.floor(window.innerHeight / 15));
+        terminal = new Terminal(window.columns, window.lines || Math.floor(window.innerHeight / 15));
         terminal.refresh();
         terminal.open();
         Terminal.focus = null;

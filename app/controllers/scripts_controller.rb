@@ -8,6 +8,7 @@ class ScriptsController < ApplicationController
     Script.create(:scriptfile => params[:scriptfile],
                   :timingfile => params[:timingfile],
                   :cols => (params[:cols] || 80).to_i,
+                  :lines => params[:lines],
                   :slug => slug,
                   :ip_address => env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR'])
 
