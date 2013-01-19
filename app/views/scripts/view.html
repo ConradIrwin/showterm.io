@@ -1,8 +1,8 @@
 <script>
     // FIXME... just using 'j' leaves everything HTML escaped too
-    window.scriptfile = <%=raw @script.scriptfile.to_json.gsub("/", "\\u002f") %>;
-    window.timingfile = <%=raw @script.timingfile.to_json.gsub("/", "\\u002f") %>;
-    window.columns = <%=raw (@script.cols || 80).to_json.gsub("/", "\\u002f") %>;
+    window.scriptfile = <%=raw_json @script.scriptfile %>;
+    window.timingfile = <%=raw_json @script.timingfile %>;
+    window.columns = <%= raw_json(@script.cols || 80) %>;
 </script>
 <style>
     body { overflow: hidden }
