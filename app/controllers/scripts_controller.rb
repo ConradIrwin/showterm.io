@@ -12,8 +12,15 @@ class ScriptsController < ApplicationController
                   :slug => slug,
                   :ip_address => env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR'])
 
+    render :text => "#{base_address}/#{CGI.escape(slug)}"
+  end
 
-    render :text => 'http://showterm.io/' + CGI.escape(slug)
+  def base_address
+    if request.base_url == "https://showterm.herokuapp.com"
+      "http://showterm.io"
+    else
+      request.base_url
+    end
   end
 
   def view
