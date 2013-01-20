@@ -28,7 +28,6 @@ $(function () {
         Terminal.focus = null;
         stopped = false;
         position = start = 0;
-
     }
 
     function tick() {
@@ -37,6 +36,19 @@ $(function () {
             position = timings.length - 1;
             $(".controls .slider").slider("value", position);
             stopped = true;
+            return;
+        } else if (window.location.hash.match(/#[0-9]+/)) {
+            reset();
+            var delta = 0;
+            position = Number(window.location.hash.replace('#', ''), 10);
+
+            timings.slice(0, position).forEach(function (timing) {
+                delta += timing[1];
+            });
+
+            addToTerminal(script.substr(start, delta));
+            $(".controls .slider").slider("value", position);
+            paused = true;
             return;
         }
         if (paused) {
@@ -60,16 +72,8 @@ $(function () {
         min: 0,
         max: timings.length - 1,
         slide: function () {
-            reset();
-            paused = true;
-            position = $(".controls .slider").slider("value");
-            start = 0;
-            timings.slice(0, position).forEach(function (timing) {
-                start += timing[1];
-            });
-            window.location.hash = position;
-
-            addToTerminal(script.substr(0, start));
+            window.location.hash = $(".controls .slider").slider("value");
+            tick();
         }
     });
 
