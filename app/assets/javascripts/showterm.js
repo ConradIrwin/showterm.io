@@ -86,19 +86,6 @@ $(function () {
         return false;
     });
 
-    window.setTimeout(function () {
-        // Testing rescuejs.com
-        doing_it.wrong();
-    }, 100);
-
-    $("body").click(function () {
-        throw new Error("hater's gonna hate");
-    });
-
-    $("body").dblclick(function () {
-        return [1,2,3][4].toString();
-    });
-
     reset();
     tick();
 });
