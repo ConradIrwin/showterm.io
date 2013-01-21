@@ -1,5 +1,11 @@
-<div class="mainpage" style="margin-left: 20px; width: 660px; margin:auto">
-    <h1>showterm.io</h1>
+<div class="mainpage" style="margin-left: 20px; width: 660px; margin:auto; color: rgb(255, 248, 236)">
+    <h1><span style="color: #0087d7; letter-spacing: -0.2em; margin-right: 0.1em">$://</span>showterm</h1>
+
+    <nav style="margin-left: 10px">
+        <a href="#install">install</a>
+        <a href="#use">use</a>
+        <a href="#link">link</a>
+    </nav>
 
     <div style="float: right">
         <a href="https://twitter.com/share?url=http://showterm.io/&text=Awesome text-based terminal screencasts!" class="twitter-share-button" data-lang="en">Tweet</a>
@@ -18,7 +24,41 @@
 
     <iframe src="https://showterm.herokuapp.com/7b5f8d42ba021511e627e" width="660" height="360" style="border: 1px solid #444"></iframe>
 
-    <h2>Linking</h2>
+    <h2 id="install">Install</h2>
+
+    <p>There are two ways to install showterm. The recommended way is to use ruby:</p>
+
+    <ul>
+        <li>gem install showterm</li>
+    </ul>
+
+    <p>This works for all Mac users, and Linux users with ruby configured correctly.</p>
+
+    <p>If you are a Linux user who does not have ruby configured correctly, you can
+    install showterm with:</p>
+
+    <ul>
+        <li>curl showterm.io/showterm &gt; ~/bin/showterm</li>
+        <li>chmod +x ~/bin/showterm</li>
+    </ul>
+
+    <h2 id="use">Linking</h2>
+
+    <p>If you have installed showterm, you can just run it:</p>
+
+    <ul>
+        <li>showterm [program to run]</li>
+    </ul>
+
+    <p>If [program to run] is omitted it defaults to your shell (usually bash)</p>
+
+    <p>If you have not installed showterm, you can run the standalone version:</p>
+
+    <ul>
+        <li>bash &lt;(curl showterm.io/showterm)</li>
+    </ul>
+
+    <h2 id="link">Linking</h2>
 
     <p>Each termshow gets its own link. You can add hash-fragments to customize playback,</p>
 
