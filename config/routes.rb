@@ -51,7 +51,7 @@ ShowtermIo::Application.routes.draw do
   # just remember to delete public/index.html.
   match 'record' => 'record#showterm'
   match 'showterm' => 'record#showterm'
-  root :to => 'record#showterm', :constrains => {:subdomain => 'record'}
+  root :to => 'record#showterm', :constraints => {:subdomain => 'record'}
 
   root :to => 'scripts#index'
 

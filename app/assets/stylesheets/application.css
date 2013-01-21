@@ -11,3 +11,40 @@
  *= require_self
  *= require_tree .
  */
+
+h2 {
+    margin-top: 40px;
+}
+
+.logo {
+    font-weight: bold;
+}
+
+.logo:before {
+    content: "$://";
+    color: #0087d7;
+    font-weight: bold;
+    letter-spacing: -0.2em;
+    margin-right: 0.1em;
+}
+
+.mainpage {
+    margin-left: 20px;
+    width: 660px;
+    margin:auto;
+    color: rgb(255, 248, 236)
+}
+
+ul {
+    list-style: none;
+}
+
+li:before {
+    content: "$ ";
+    color: #0087d7;
+}
+
+nav {
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
