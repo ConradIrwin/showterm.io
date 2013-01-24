@@ -14,6 +14,10 @@ body {
     white-space: normal;
   }
 }
+// Fix http://showterm.io/2eb3af59620cb9796a4dc
+div.terminal {
+    line-height: 120%;
+}
 
 h1 {
   color: white;
