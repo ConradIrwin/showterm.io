@@ -2,7 +2,7 @@ This is the server backend for [showterm](https://github.com/ConradIrwin/showter
 
 It's hopefully available on the internet at
 [http://showterm.io](https://showterm.herokuapp.com), but it might still only be at
-(https://showterm.herokuapp.com)[https://showterm.herokuapp.com].
+[https://showterm.herokuapp.com](https://showterm.herokuapp.com).
 
 Private server
 ==============
