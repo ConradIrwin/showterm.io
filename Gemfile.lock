@@ -51,6 +51,8 @@ GEM
     heroku-api (0.3.5)
       excon (~> 0.16.1)
     hike (1.2.1)
+    honeybadger (1.7.0)
+      json
     i18n (0.6.1)
     journey (1.0.4)
     jquery-rails (2.1.3)
@@ -121,6 +123,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
   heroku
+  honeybadger
   jquery-rails
   pg
   rails (~> 3.2.11)
