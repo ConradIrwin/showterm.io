@@ -1,7 +1,16 @@
 class ScriptsController < ApplicationController
   def create
-    render :text => 'No scriptfile given', :status => 400 unless params[:scriptfile]
-    render :text => 'No timingfile given', :status => 400 unless params[:timingfile]
+
+    # prevent DoubleRenderError when either scriptfile or timingfile may be empty
+    unless params[:scriptfile]
+      render :text => 'No scriptfile given', :status => 400
+      return
+    end
+
+    unless params[:timingfile]
+      render :text => 'No timingfile given', :status => 400
+      return
+    end
 
     slug = Digest::SHA1.hexdigest([params[:scriptfile], params[:timingfile]].inspect)[0..20]
 
