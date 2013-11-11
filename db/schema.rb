@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130119105342) do
+ActiveRecord::Schema.define(:version => 20131111202216) do
 
   create_table "scripts", :force => true do |t|
     t.string   "slug"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20130119105342) do
     t.datetime "updated_at",                 :null => false
     t.integer  "cols",       :default => 80
     t.integer  "lines"
+    t.text     "secret"
   end
 
   add_index "scripts", ["slug"], :name => "index_scripts_on_slug"
