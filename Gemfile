@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 3.2.11'
 gem 'heroku'
 gem 'bugsnag'
+gem 'secure_equals'
 
 gem 'skylight'
 
