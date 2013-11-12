@@ -12,7 +12,8 @@ ShowtermIo::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :scripts
-  match ':slug' => 'scripts#view', :slug => /[0-9a-f]{20,40}/
+  get ':slug' => 'scripts#view', :slug => /[0-9a-f]{20,40}/
+  delete ':slug' => 'scripts#destroy', :slug => /[0-9a-f]{20,40}/
 
   # Sample resource route with options:
   #   resources :products do

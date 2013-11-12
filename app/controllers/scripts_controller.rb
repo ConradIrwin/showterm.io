@@ -1,4 +1,6 @@
 class ScriptsController < ApplicationController
+
+  before_filter :load_script, only: [:view, :destroy]
   def create
 
     # prevent DoubleRenderError when either scriptfile or timingfile may be empty
@@ -34,9 +36,39 @@ class ScriptsController < ApplicationController
   end
 
   def view
-    @script = Script.find_by_slug(params[:slug])
   end
 
   def index
+  end
+
+  def destroy
+    unless @script
+      render :text => "No such script", status: 404
+      return
+    end
+
+    unless @script.secret
+      render :text => "This script is too old to delete, email me@cirw.in for help.", status: 400
+      return
+    end
+
+    unless String === params[:secret]
+      render :text => "Must provide ?secret= to delete a script", status: 400
+      return
+    end
+
+    unless SecureEquals.equal? @script.secret, params[:secret]
+      render :text => "This script was uploaded from a different computer", status: 401
+      return
+    end
+
+    @script.destroy
+    render :text => "Deleted #{base_address}/#{CGI.escape(@script.slug)}"
+  end
+
+  private
+
+  def load_script
+    @script = Script.find_by_slug(params[:slug])
   end
 end
