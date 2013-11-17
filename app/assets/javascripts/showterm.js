@@ -77,7 +77,7 @@ $(function () {
         }
     });
 
-    $('.controls > a[url^=#]').click(function () {
+    $('.controls > a[href^=#]').click(function () {
         window.location.hash = this.href.split('#')[1];
         if (paused) {
             paused = false;
