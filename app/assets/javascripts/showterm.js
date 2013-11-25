@@ -26,6 +26,7 @@ $(function () {
         terminal.refresh();
         terminal.open();
         Terminal.focus = null;
+        Terminal.cursorBlink = false;
         stopped = false;
         position = start = 0;
     }
