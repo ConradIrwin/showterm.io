@@ -50,9 +50,9 @@ ShowtermIo::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  match 'record' => 'record#showterm'
-  match 'showterm' => 'record#showterm'
-  root :to => 'record#showterm', :constraints => {:subdomain => 'record'}
+  get 'record' => 'record#showterm'
+  get 'showterm' => 'record#showterm'
+  root :to => 'record#showterm', :constraints => {:subdomain => 'record'}, as: 'record_root'
 
   root :to => 'scripts#index'
 
