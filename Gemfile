@@ -5,6 +5,7 @@ gem 'rails'
 gem 'heroku'
 gem 'bugsnag'
 gem 'secure_equals'
+gem 'rails_12factor'
 
 gem 'skylight'
 
