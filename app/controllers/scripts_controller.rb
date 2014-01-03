@@ -1,6 +1,7 @@
 class ScriptsController < ApplicationController
 
   before_filter :load_script, only: [:view, :destroy]
+
   def create
 
     # prevent DoubleRenderError when either scriptfile or timingfile may be empty
@@ -36,6 +37,7 @@ class ScriptsController < ApplicationController
   end
 
   def view
+    response.headers.except! 'X-Frame-Options'
   end
 
   def index
