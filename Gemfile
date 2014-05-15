@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.1.1'
 
 gem 'rails'
 gem 'heroku'
@@ -8,6 +8,8 @@ gem 'secure_equals'
 gem 'rails_12factor'
 
 gem 'skylight'
+
+gem 'pry', '0.10.0.pre3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
