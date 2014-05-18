@@ -59,7 +59,6 @@ $(function () {
         var delay = window.location.hash === '#fast' ? 500 : 1000;
         addToTerminal(script.substr(start, timings[position][1]));
         start += timings[position][1];
-        position += 1;
         $(".controls .slider").slider("value", position);
 
         if (position + 1 === timings.length) {
@@ -67,6 +66,8 @@ $(function () {
         } else {
             window.setTimeout(tick, timings[position + 1][0] * delay);
         }
+
+        position += 1;
     }
 
     $('.controls .slider').slider({
