@@ -11,7 +11,16 @@ $(function () {
         position = 0,
         stopped = false,
         paused = false,
-        terminal;
+        terminal,
+        delay = 1000;
+
+    function slower() {
+        delay *= 2;
+    }
+
+    function faster() {
+        delay /= 2;
+    }
 
     function addToTerminal(string) {
         terminal.write(string);
@@ -32,13 +41,7 @@ $(function () {
     }
 
     function tick() {
-        if (window.location.hash === '#stop') {
-            addToTerminal(script.substr(start));
-            position = timings.length - 1;
-            $(".controls .slider").slider("value", position);
-            stopped = true;
-            return;
-        } else if (window.location.hash.match(/#[0-9]+/)) {
+        if (window.location.hash.match(/#[0-9]+/)) {
             reset();
             var delta = 0;
             position = Number(window.location.hash.replace('#', ''), 10);
@@ -52,11 +55,11 @@ $(function () {
             paused = true;
             return;
         }
+
         if (paused) {
             return;
         }
 
-        var delay = window.location.hash === '#fast' ? 500 : 1000;
         addToTerminal(script.substr(start, timings[position][1]));
         start += timings[position][1];
         $(".controls .slider").slider("value", position);
@@ -80,15 +83,42 @@ $(function () {
     });
 
     $('.controls > a[href^=#]').click(function () {
-        window.location.hash = this.href.split('#')[1];
-        if (paused) {
-            paused = false;
-            tick();
+        var command = this.href.split('#')[1];
+        switch (command) {
+            case "play":
+                paused = !paused;
+
+                // unpausing after moving the slider
+                window.location.hash = '';
+                if (position) {
+                    start = 0;
+                    timings.slice(0, position).forEach(function (timing) {
+                        start += timing[1];
+                    });
+                }
+
+                // resume
+                if (!paused) tick();
+                break;
+            case "slower": slower(); break;
+            case "faster": faster(); break;
+            case "replay":
+                paused = false;
+                reset();
+                tick();
+                break;
+            default:
+                window.location.hash = command;
+                if (paused) {
+                    paused = false;
+                    tick();
+                }
+                if (stopped) {
+                    reset();
+                    tick();
+                }
         }
-        if (stopped) {
-            reset();
-            tick();
-        }
+
         return false;
     });
 
