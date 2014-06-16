@@ -1,5 +1,5 @@
 class ScriptsController < ApplicationController
-
+  respond_to :html, :json, :xml
   before_filter :load_script, only: [:view, :destroy]
 
   def create
@@ -38,6 +38,8 @@ class ScriptsController < ApplicationController
 
   def view
     response.headers.except! 'X-Frame-Options'
+
+    respond_with @script
   end
 
   def index
