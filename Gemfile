@@ -9,7 +9,7 @@ gem 'rails_12factor'
 
 gem 'skylight'
 
-gem 'pry', '0.10.0.pre3'
+gem 'pry', '0.10.0.pre4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
