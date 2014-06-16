@@ -28,27 +28,3 @@ h1 {
 a {
   color: white;
 }
-
-.controls {
-    opacity: 0.8;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.2);
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-  .slider {
-    height: 5px;
-    width: 200px;
-    margin-right: 10px;
-    margin-left: 10px;
-    display: inline-block;
-
-    a {
-      height: 13px;
-    }
-  }
-  .logo-link {
-    text-decoration: none;
-  }
-}

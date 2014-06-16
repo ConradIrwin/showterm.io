@@ -41,7 +41,7 @@ $.fn.showterm = function (options) {
         if (window.location.hash === '#stop') {
             addToTerminal(script.substr(start));
             position = timings.length - 1;
-            $that.find(".controls .slider").slider("value", position);
+            $that.find(".showterm-controls .showterm-slider").slider("value", position);
             stopped = true;
             return;
         } else if (window.location.hash.match(/#[0-9]+/)) {
@@ -54,7 +54,7 @@ $.fn.showterm = function (options) {
             });
 
             addToTerminal(script.substr(start, delta));
-            $that.find(".controls .slider").slider("value", position);
+            $that.find(".showterm-controls .showterm-slider").slider("value", position);
             paused = true;
             return;
         }
@@ -66,7 +66,7 @@ $.fn.showterm = function (options) {
         addToTerminal(script.substr(start, timings[position][1]));
         start += timings[position][1];
         position += 1;
-        $(".controls .slider").slider("value", position);
+        $(".showterm-controls .showterm-slider").slider("value", position);
 
         if (position + 1 === timings.length) {
             stopped = true;
@@ -75,19 +75,19 @@ $.fn.showterm = function (options) {
         }
     }
 
-    $that.html('<div class="controls"><a target="_top" class="logo-link" href="/"><span class="logo">showterm</span></a><div class="slider"></div><a href="#slow">slow</a><a href="#fast">fast</a><a href="#stop">stop</a></div>');
-
+    $that.html('<div class="showterm-controls"><a target="_top" class="showterm-logo-link" href="/"><span class="showterm-logo">showterm</span></a><div class="showterm-slider"></div><a href="#slow">slow</a><a href="#fast">fast</a><a href="#stop">stop</a></div>');
+    $that.append($('<style>').text('.showterm-controls a { padding-right: 10px;} .showterm-controls { opacity: 0.8; padding: 10px; background: rgba(255, 255, 255, 0.2); position: absolute; right: 0; bottom: 0; } .showterm-controls .showterm-slider { height: 5px; width: 200px; margin-right: 10px; margin-left: 10px; display: inline-block;} .showterm-controls .showterm-slider a { height: 13px; } .showterm-controls .showterm-logo-link {  text-decoration: none;} .showterm-logo { font-weight: bold;} .showterm-logo:before { content: "$://"; color: #0087d7; font-weight: bold; letter-spacing: -0.2em; margin-right: 0.1em;}'));
     function play() {
-        $that.find('.controls .slider').slider({
+        $that.find('.showterm-controls .showterm-slider').slider({
             min: 0,
             max: timings.length - 1,
             slide: function () {
-                window.location.hash = $that.find(".controls .slider").slider("value");
+                window.location.hash = $that.find(".showterm-controls .showterm-slider").slider("value");
                 tick();
             }
         });
 
-        $that.find('.controls > a[href^=#]').click(function () {
+        $that.find('.showterm-controls > a[href^=#]').click(function () {
             window.location.hash = this.href.split('#')[1];
             if (paused) {
                 paused = false;
