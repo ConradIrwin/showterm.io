@@ -1,17 +1,23 @@
 /*global window,document,console, $,Terminal */
 /*jslint regexp: false*/
-$(function () {
+$.fn.showterm = function (options) {
+    var $that = this;
+    options = options || {};
+
     Terminal.bindKeys = function () {};
-    var timings = window.timingfile.trim().split("\n").map(function (line) {
-        return line.split(" ").map(Number);
-    }),
-        lines = window.scriptfile.trim().split("\n"),
-        script = lines.slice(1).join("\n"),
-        start = 0,
-        position = 0,
-        stopped = false,
-        paused = false,
-        terminal;
+    var timings, lines, script, start, position, stopped, paused, terminal;
+
+    function load_from(options) {
+        timings = (options.timingfile || '').trim().split("\n").map(function (line) {
+            return line.split(" ").map(Number);
+        });
+        lines = (options.scriptfile || '').trim().split("\n");
+        script = lines.slice(1).join("\n");
+        start = 0;
+        position = options.position || 0;
+        stopped = options.stopped;
+        paused = options.paused;
+    }
 
     function addToTerminal(string) {
         terminal.write(string);
@@ -22,7 +28,7 @@ $(function () {
             $(terminal.element).remove();
         }
 
-        terminal = new Terminal(window.columns, window.lines || Math.floor(window.innerHeight / 15));
+        terminal = new Terminal({cols: options.columns || 80, rows: options.lines || Math.floor($that.innerHeight() / 15), parent: $that[0]});
         terminal.refresh();
         terminal.open();
         Terminal.focus = null;
@@ -35,7 +41,7 @@ $(function () {
         if (window.location.hash === '#stop') {
             addToTerminal(script.substr(start));
             position = timings.length - 1;
-            $(".controls .slider").slider("value", position);
+            $that.find(".controls .slider").slider("value", position);
             stopped = true;
             return;
         } else if (window.location.hash.match(/#[0-9]+/)) {
@@ -48,7 +54,7 @@ $(function () {
             });
 
             addToTerminal(script.substr(start, delta));
-            $(".controls .slider").slider("value", position);
+            $that.find(".controls .slider").slider("value", position);
             paused = true;
             return;
         }
@@ -69,28 +75,47 @@ $(function () {
         }
     }
 
-    $('.controls .slider').slider({
-        min: 0,
-        max: timings.length - 1,
-        slide: function () {
-            window.location.hash = $(".controls .slider").slider("value");
-            tick();
-        }
-    });
+    $that.html('<div class="controls"><a target="_top" class="logo-link" href="/"><span class="logo">showterm</span></a><div class="slider"></div><a href="#slow">slow</a><a href="#fast">fast</a><a href="#stop">stop</a></div>');
 
-    $('.controls > a[href^=#]').click(function () {
-        window.location.hash = this.href.split('#')[1];
-        if (paused) {
-            paused = false;
-            tick();
-        }
-        if (stopped) {
-            reset();
-            tick();
-        }
-        return false;
-    });
+    function play() {
+        $that.find('.controls .slider').slider({
+            min: 0,
+            max: timings.length - 1,
+            slide: function () {
+                window.location.hash = $that.find(".controls .slider").slider("value");
+                tick();
+            }
+        });
 
-    reset();
-    tick();
-});
+        $that.find('.controls > a[href^=#]').click(function () {
+            window.location.hash = this.href.split('#')[1];
+            if (paused) {
+                paused = false;
+                tick();
+            }
+            if (stopped) {
+                reset();
+                tick();
+            }
+            return false;
+        });
+
+        reset();
+        tick();
+    }
+
+    if(options.url) {
+        $.ajax({
+            url: options.url,
+            dataType: 'json',
+            success: function(data) {
+                load_from($.extend({}, options, data));
+                play();
+            }
+        });
+    } else {
+        load_from(option);
+        play();
+    }
+
+};

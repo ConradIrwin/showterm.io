@@ -1,18 +1,12 @@
-<script>
-    // FIXME... just using 'j' leaves everything HTML escaped too
-    window.scriptfile = <%=raw_json @script.scriptfile %>;
-    window.timingfile = <%=raw_json @script.timingfile %>;
-    window.columns = <%= raw_json @script.cols %>;
-    window.lines = <%=raw_json @script.lines %>;
-</script>
 <style>
     body { overflow: hidden }
 </style>
-
-<div class="controls">
-    <a target="_top" class="logo-link" href="/"><span class="logo">showterm</span></a>
-    <div class="slider"></div>
-    <a href="#slow">slow</a>
-    <a href="#fast">fast</a>
-    <a href="#stop">stop</a>
-</div>
+<script>
+  $(document.body).showterm({
+   // FIXME... just using 'j' leaves everything HTML escaped too
+   scriptfile: <%=raw_json @script.scriptfile %>,
+   timingfile: <%=raw_json @script.timingfile %>,
+   columns: <%= raw_json @script.cols %>,
+   lines: <%=raw_json @script.lines %>
+   });
+</script>
