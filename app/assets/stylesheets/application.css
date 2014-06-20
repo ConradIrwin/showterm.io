@@ -48,3 +48,10 @@ nav {
     margin-top: 40px;
     margin-bottom: 30px;
 }
+
+#example {
+    width: 660px;
+    height: 360px;
+    border: 1px solid #444;
+    position: relative;
+}

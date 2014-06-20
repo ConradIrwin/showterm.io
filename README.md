@@ -13,7 +13,9 @@ installations you can use the builtin server that comes with rails in a few easy
 1. git clone https://github.com/ConradIrwin/showterm.io
 2. Set up a database (I've only tested postgres), and add a config/database.yml
 3. `bundle install`
-4. `rails s`
+4. create a `database.yml` file in the `config` directory
+5. `bundle exec rake db:create db:migrate db:seed`
+6. `rails s`
 
 You'll also need to configure your user's `showterm` clients by adding `export SHOWTERM_SERVER`
 to their `~/.bashrc`s.
@@ -22,4 +24,3 @@ Meta-fu
 =======
 As usual bug-reports and pull-requests are very welcome. Everything is licensed under the
 MIT license.
-
