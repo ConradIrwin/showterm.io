@@ -114,7 +114,7 @@ $.fn.showterm = function (options) {
             }
         });
     } else {
-        load_from(option);
+        load_from(options);
         play();
     }
 
