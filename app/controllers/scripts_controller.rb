@@ -39,7 +39,9 @@ class ScriptsController < ApplicationController
   def view
     response.headers.except! 'X-Frame-Options'
 
-    respond_with @script
+    respond_with @script do |format|
+      format.json { render :json => @script.to_json, :callback => params[:callback] }
+    end
   end
 
   def index

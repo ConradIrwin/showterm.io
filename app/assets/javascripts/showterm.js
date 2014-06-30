@@ -105,13 +105,9 @@ $.fn.showterm = function (options) {
     }
 
     if(options.url) {
-        $.ajax({
-            url: options.url,
-            dataType: 'json',
-            success: function(data) {
+        $.getJSON(options.url+"?callback=?").done(function(data) {
                 load_from($.extend({}, options, data));
                 play();
-            }
         });
     } else {
         load_from(options);
