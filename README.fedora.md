@@ -17,22 +17,20 @@ Create user and database on existing MySQL (mariadb exactly) installation
 Install
 -------
 
-1. Make sure all deps are installed (some deps are for mod_passenger: gcc-c++, curl-devel and httpd-devel )
+Make sure all deps are installed (some deps are for mod_passenger: gcc-c++, curl-devel and httpd-devel )
 
 	yum install ruby-devel gcc gcc-c++ make mysql-devel git curl-devel httpd-devel
 
-2. Prepare install (as root): grant apache user to his home directory and install gem
+Prepare install (as root): grant apache user to his home directory and install gem
 
 	chown apache /var/www
 	gem install execjs therubyracer bundler rake
 
-3. Clone showterm.io project
+Clone showterm.io project
 
 	su - apache -s /bin/bash
 	cd /var/www
 	git clone https://github.com/ConradIrwin/showterm.io
-
-4. Edit some files
 
 Edit Gemfile
 * Specify MySQL Database: replace 'pg' with 'mysql2'
@@ -43,6 +41,7 @@ Edit Gemfile
 	sed -i -e '/^ruby/ s/2.1.1/2.0.0/' Gemfile
 	
 Create config/database.yml file like this.
+
 Set MySQL user to root for now, and change it when database will be populated.
 
 	cat << EOF > config/database.yml
@@ -72,7 +71,8 @@ Set MySQL user to root for now, and change it when database will be populated.
 	  password: "************"
 	EOF
 
-5. Setup application
+Setup application
+-----------------
 
 	bundle install
 	bundle exec rake db:create db:migrate db:seed RAILS_ENV=production
@@ -90,12 +90,12 @@ Point your web browser to [localhost:3000](http://localhost:3000) and check if p
 Install mod_passenger
 ---------------------
 
-1. Install passenger gem and compile apache module as root
+Install passenger gem and compile apache module as root
 
 	gem install passenger
 	passenger-install-apache2-module
 
-2. Copy/Paste instructions on /etc/httpd/conf.d/passenger.conf apache configuration file
+Copy/Paste instructions on /etc/httpd/conf.d/passenger.conf apache configuration file
 
 	cat << EOF > /etc/httpd/conf.d/passenger.conf
 	oadModule passenger_module /usr/local/share/gems/gems/passenger-4.0.50/buildout/apache2/mod_passenger.so
@@ -105,7 +105,7 @@ Install mod_passenger
 	</IfModule>
 	EOF
 
-3. Create Apache vhost for showterm
+Create Apache vhost for showterm
 
 	cat << EOF > /etc/httpd/conf.d/showterm.conf
 	NameVirtualHost *:80
@@ -148,6 +148,6 @@ Install mod_passenger
 	</VirtualHost>
 	EOF
 
-4. Restart apache
+Restart apache
 
 	systemctl restart httpd
