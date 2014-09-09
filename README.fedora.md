@@ -32,9 +32,7 @@ Clone showterm.io project
 	cd /var/www
 	git clone https://github.com/ConradIrwin/showterm.io
 
-Edit Gemfile
-* Specify MySQL Database: replace 'pg' with 'mysql2'
-* Set lower ruby version
+Edit Gemfile to specify MySQL Database (replace 'pg' with 'mysql2') and set a lower ruby version
 
 	cd /var/www/showterm.io
 	sed -i -e 's/pg/mysql2/' Gemfile
