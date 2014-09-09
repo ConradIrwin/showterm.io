@@ -39,7 +39,7 @@ Edit Gemfile
 	cd /var/www/showterm.io
 	sed -i -e 's/pg/mysql2/' Gemfile
 	sed -i -e '/^ruby/ s/2.1.1/2.0.0/' Gemfile
-	
+
 Create config/database.yml file like this.
 
 Set MySQL user to root for now, and change it when database will be populated.
