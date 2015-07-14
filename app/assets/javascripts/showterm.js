@@ -54,6 +54,7 @@ $.fn.showterm = function (options) {
             });
 
             addToTerminal(script.substr(start, delta));
+            start = delta
             $that.find(".showterm-controls .showterm-slider").slider("value", position);
             paused = true;
             return;
