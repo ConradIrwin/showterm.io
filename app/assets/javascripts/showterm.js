@@ -2,6 +2,7 @@
 /*jslint regexp: false*/
 $.fn.showterm = function (options) {
     var $that = this;
+    delay = 1000
     options = options || {};
 
     Terminal.bindKeys = function () {};
@@ -54,6 +55,7 @@ $.fn.showterm = function (options) {
             });
 
             addToTerminal(script.substr(start, delta));
+            start = delta
             $that.find(".showterm-controls .showterm-slider").slider("value", position);
             paused = true;
             return;
@@ -62,7 +64,6 @@ $.fn.showterm = function (options) {
             return;
         }
 
-        var delay = window.location.hash === '#fast' ? 500 : 1000;
         addToTerminal(script.substr(start, timings[position][1]));
         start += timings[position][1];
         position += 1;
@@ -77,21 +78,71 @@ $.fn.showterm = function (options) {
 
     $that.html('<div class="showterm-controls"><a target="_top" class="showterm-logo-link" href="/"><span class="showterm-logo">showterm</span></a><div class="showterm-slider"></div><a href="#slow">slow</a><a href="#fast">fast</a><a href="#stop">stop</a></div>');
     $that.append($('<style>').text('.showterm-controls a { padding-right: 10px;} .showterm-controls { opacity: 0.8; padding: 10px; background: rgba(255, 255, 255, 0.2); position: absolute; right: 0; bottom: 0; } .showterm-controls .showterm-slider { height: 5px; width: 200px; margin-right: 10px; margin-left: 10px; display: inline-block;} .showterm-controls .showterm-slider a { height: 13px; } .showterm-controls .showterm-logo-link {  text-decoration: none;} .showterm-logo { font-weight: bold;} .showterm-logo:before { content: "$://"; color: #0087d7; font-weight: bold; letter-spacing: -0.2em; margin-right: 0.1em;}'));
+    $slider = $that.find('.showterm-controls .showterm-slider')
+    function pauseOrResume() {
+        if (paused) {
+                resume()
+            } else {
+                pause()
+            }
+    }
+    function resume() {
+        paused = false;
+        window.location.hash = ""
+        tick();
+    }
+    function pause() {
+        $slider.slider('option', 'slide').call($slider)
+    }
+    $that.keydown(function(e){
+        switch (e.keyCode)
+        {
+        case 32: // spacebar
+            e.preventDefault()
+            pauseOrResume()
+            break;
+        case 37: // left arrow:
+        case 39: // right arrow:
+            if (e.shiftKey) {
+                $slider.trigger(e)
+            }
+            break;
+        case 219: // [
+            modifySpeed(-1)
+            break;
+        case 221: // ]
+            modifySpeed(+1)
+            break;
+        }
+    })
+    function modifySpeed(diff) {
+        if(paused) {
+            return
+        }
+        var d = delay - diff * 50
+        if(d >= 0) {
+            delay = d
+            console.log("speed modified, new delay: " + delay)
+        }
+    }
     function play() {
-        $that.find('.showterm-controls .showterm-slider').slider({
+        $slider.slider({
             min: 0,
             max: timings.length - 1,
             slide: function () {
-                window.location.hash = $that.find(".showterm-controls .showterm-slider").slider("value");
+                window.location.hash = $slider.slider("value");
+                $that.find("#pauseOrResume").href="#" + window.location.hash
                 tick();
             }
         });
 
         $that.find('.showterm-controls > a[href^=#]').click(function () {
             window.location.hash = this.href.split('#')[1];
+            if(window.location.hash == 'fast') {
+                delay = 500
+            }
             if (paused) {
-                paused = false;
-                tick();
+                resume()
             }
             if (stopped) {
                 reset();
