@@ -42,7 +42,7 @@ $.fn.showterm = function (options) {
         if (window.location.hash === '#stop') {
             addToTerminal(script.substr(start));
             position = timings.length - 1;
-            $that.find(".showterm-controls .showterm-slider").slider("value", position);
+            $slider.slider("value", position);
             stopped = true;
             return;
         } else if (window.location.hash.match(/#[0-9]+/)) {
@@ -56,7 +56,7 @@ $.fn.showterm = function (options) {
 
             addToTerminal(script.substr(start, delta));
             start = delta
-            $that.find(".showterm-controls .showterm-slider").slider("value", position);
+            $slider.slider("value", position);
             paused = true;
             return;
         }
@@ -102,16 +102,16 @@ $.fn.showterm = function (options) {
             pauseOrResume()
             break;
         case 37: // left arrow:
-        case 39: // right arrow:
-            if (e.shiftKey) {
-                $slider.trigger(e)
-            }
+        case 39: // right arrow:    
+            var oldval = $slider.slider("value")
+            var newval = oldval + 10*(e.keyCode - 38)
+            console.log("oldval: " + oldval + ", newval: " + newval)
+            $slider.slider("value", newval)
+            pause()            
             break;
-        case 219: // [
-            modifySpeed(-1)
-            break;
+        case 219: // [            
         case 221: // ]
-            modifySpeed(+1)
+            modifySpeed(e.keyCode - 220)
             break;
         }
     })
@@ -131,7 +131,6 @@ $.fn.showterm = function (options) {
             max: timings.length - 1,
             slide: function () {
                 window.location.hash = $slider.slider("value");
-                $that.find("#pauseOrResume").href="#" + window.location.hash
                 tick();
             }
         });
