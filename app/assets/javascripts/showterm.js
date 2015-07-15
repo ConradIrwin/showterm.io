@@ -83,7 +83,7 @@ $.fn.showterm = function (options) {
             "<li> ? : Show this help" +
             "<li> escape : Close this help if open" +
         "</ul>"
-    $that.html('<div class="showterm-controls"><a target="_top" class="showterm-logo-link" href="/"><span class="showterm-logo">showterm</span></a><div class="showterm-slider"></div><a href="#slow">slow</a><a href="#fast">fast</a><a href="#stop">stop</a><a id="help_link" href="javascript:void">Help</a></div><div id="help_dialog">' + help_html + '</div>');
+    $that.html('<div class="showterm-controls"><a target="_top" class="showterm-logo-link" href="/"><span class="showterm-logo">showterm</span></a><div class="showterm-slider"></div><a href="#slow">slow</a><a href="#fast">fast</a><a href="#stop">stop</a><a id="help_link" href="javascript:void">?</a></div><div id="help_dialog">' + help_html + '</div>');
     $that.append($('<style>').text('.showterm-controls a { padding-right: 10px;} .showterm-controls { opacity: 0.8; padding: 10px; background: rgba(255, 255, 255, 0.2); position: absolute; right: 0; bottom: 0; } .showterm-controls .showterm-slider { height: 5px; width: 200px; margin-right: 10px; margin-left: 10px; display: inline-block;} .showterm-controls .showterm-slider a { height: 13px; } .showterm-controls .showterm-logo-link {  text-decoration: none;} .showterm-logo { font-weight: bold;} .showterm-logo:before { content: "$://"; color: #0087d7; font-weight: bold; letter-spacing: -0.2em; margin-right: 0.1em;}'));
     $slider = $that.find('.showterm-controls .showterm-slider')
     $dialog = $('#help_dialog')    
