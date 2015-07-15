@@ -75,10 +75,26 @@ $.fn.showterm = function (options) {
             window.setTimeout(tick, timings[position + 1][0] * delay);
         }
     }
-
-    $that.html('<div class="showterm-controls"><a target="_top" class="showterm-logo-link" href="/"><span class="showterm-logo">showterm</span></a><div class="showterm-slider"></div><a href="#slow">slow</a><a href="#fast">fast</a><a href="#stop">stop</a></div>');
+    help_html = "<h3> Use following keyboard shortcuts for navigation: </h2> " + 
+        "<ul>" +
+            "<li> Spacebar : Play/Pause playback</li>" +
+            "<li> shift + left/right arrow : Rewind/Forward playback" +
+            "<li> '[' and ']' : Slow down/speed up playback" +
+            "<li> ? : Show this help" +
+            "<li> escape : Close this help if open" +
+        "</ul>"
+    $that.html('<div class="showterm-controls"><a target="_top" class="showterm-logo-link" href="/"><span class="showterm-logo">showterm</span></a><div class="showterm-slider"></div><a href="#slow">slow</a><a href="#fast">fast</a><a href="#stop">stop</a><a id="help_link" href="javascript:void">Help</a></div><div id="help_dialog">' + help_html + '</div>');
     $that.append($('<style>').text('.showterm-controls a { padding-right: 10px;} .showterm-controls { opacity: 0.8; padding: 10px; background: rgba(255, 255, 255, 0.2); position: absolute; right: 0; bottom: 0; } .showterm-controls .showterm-slider { height: 5px; width: 200px; margin-right: 10px; margin-left: 10px; display: inline-block;} .showterm-controls .showterm-slider a { height: 13px; } .showterm-controls .showterm-logo-link {  text-decoration: none;} .showterm-logo { font-weight: bold;} .showterm-logo:before { content: "$://"; color: #0087d7; font-weight: bold; letter-spacing: -0.2em; margin-right: 0.1em;}'));
     $slider = $that.find('.showterm-controls .showterm-slider')
+    $dialog = $('#help_dialog')    
+    $dialog.html(help_html)
+    $dialog.dialog({
+        title: "Help",
+        autoOpen: false,
+        close: resume,
+        open: pause,        
+        width: "auto"
+    })
     function pauseOrResume() {
         if (paused) {
                 resume()
@@ -94,6 +110,9 @@ $.fn.showterm = function (options) {
     function pause() {
         $slider.slider('option', 'slide').call($slider)
     }
+    function showHelp(){
+        $dialog.dialog('open')
+    }
     $that.keydown(function(e){
         switch (e.keyCode)
         {
@@ -102,17 +121,20 @@ $.fn.showterm = function (options) {
             pauseOrResume()
             break;
         case 37: // left arrow:
-        case 39: // right arrow:    
-            var oldval = $slider.slider("value")
-            var newval = oldval + 10*(e.keyCode - 38)
-            console.log("oldval: " + oldval + ", newval: " + newval)
-            $slider.slider("value", newval)
-            pause()            
+        case 39: // right arrow:
+            if(e.shiftKey) {            
+                $slider.slider("value", $slider.slider("value") + 10*(e.keyCode - 38))
+                pause()            
+            }
             break;
         case 219: // [            
         case 221: // ]
             modifySpeed(e.keyCode - 220)
             break;
+        case 191:
+            if(e.shiftKey) { // ? key
+                showHelp()
+            }
         }
     })
     function modifySpeed(diff) {
@@ -153,7 +175,7 @@ $.fn.showterm = function (options) {
         reset();
         tick();
     }
-
+    $that.find('.showterm-controls > a#help_link').click(showHelp);    
     if(options.url) {
         $.getJSON(options.url+"?callback=?").done(function(data) {
                 load_from($.extend({}, options, data));

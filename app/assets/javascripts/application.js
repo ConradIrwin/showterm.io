@@ -11,6 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery-ui-1.10.4.custom.min
+//= require jquery-ui-1.11.4.custom.min
 //= require term
 //= require showterm
