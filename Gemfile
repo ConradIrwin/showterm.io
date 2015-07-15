@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '2.1.2'
 
 gem 'rails'
 gem 'heroku'
 gem 'bugsnag'
 gem 'secure_equals'
 gem 'rails_12factor'
+gem 'sqlite3'
 
 gem 'skylight'
 
