@@ -69,7 +69,7 @@ $.fn.showterm = function (options) {
         position += 1;
         $(".showterm-controls .showterm-slider").slider("value", position);
 
-        if (position + 1 === timings.length) {
+        if (position + 1 >= timings.length) {
             stopped = true;
         } else {
             window.setTimeout(tick, timings[position + 1][0] * delay);
@@ -79,11 +79,13 @@ $.fn.showterm = function (options) {
         "<ul>" +
             "<li> Spacebar : Play/Pause playback</li>" +
             "<li> shift + left/right arrow : Rewind/Forward playback" +
+            "<li> left/right arrow : Horizontal scroll" +
             "<li> '[' and ']' : Slow down/speed up playback" +
+            "<li> f : Toggle Full screen Mode" +
             "<li> ? : Show this help" +
-            "<li> escape : Close this help if open" +
+            "<li> escape : Toggle full screen or Close this help if open" +
         "</ul>"
-    $that.html('<div class="showterm-controls"><a target="_top" class="showterm-logo-link" href="/"><span class="showterm-logo">showterm</span></a><div class="showterm-slider"></div><a href="#slow">slow</a><a href="#fast">fast</a><a href="#stop">stop</a><a id="help_link" href="javascript:void">?</a></div><div id="help_dialog">' + help_html + '</div>');
+    $that.html('<div class="showterm-controls"><a target="_top" class="showterm-logo-link" href="/"><span class="showterm-logo">showterm</span></a><div class="showterm-slider"></div><a href="#slow">slow</a><a href="#fast">fast</a><a href="#stop">stop</a><a id="help_link" href="javascript:void">?</a><a id="fullscreen_btn" href="javascript:void" style="text-decoration:none">[ ]</a></div><div id="help_dialog">' + help_html + '</div>');
     $that.append($('<style>').text('.showterm-controls a { padding-right: 10px;} .showterm-controls { opacity: 0.8; padding: 10px; background: rgba(255, 255, 255, 0.2); position: absolute; right: 0; bottom: 0; } .showterm-controls .showterm-slider { height: 5px; width: 200px; margin-right: 10px; margin-left: 10px; display: inline-block;} .showterm-controls .showterm-slider a { height: 13px; } .showterm-controls .showterm-logo-link {  text-decoration: none;} .showterm-logo { font-weight: bold;} .showterm-logo:before { content: "$://"; color: #0087d7; font-weight: bold; letter-spacing: -0.2em; margin-right: 0.1em;}'));
     $slider = $that.find('.showterm-controls .showterm-slider')
     $dialog = $('#help_dialog')    
@@ -95,6 +97,10 @@ $.fn.showterm = function (options) {
         open: pause,        
         width: "auto"
     })
+    isFullScreen = false;
+    function toggleFullscreen() {
+        $that.fullScreen(isFullScreen = !isFullScreen)
+    }
     function pauseOrResume() {
         if (paused) {
                 resume()
@@ -135,6 +141,12 @@ $.fn.showterm = function (options) {
             if(e.shiftKey) { // ? key
                 showHelp()
             }
+            break;
+        case 70:
+            toggleFullscreen();
+            break;
+        default:
+            break;
         }
     })
     function modifySpeed(diff) {
@@ -176,6 +188,7 @@ $.fn.showterm = function (options) {
         tick();
     }
     $that.find('.showterm-controls > a#help_link').click(showHelp);    
+    $that.find('.showterm-controls > a#fullscreen_btn').click(toggleFullscreen);    
     if(options.url) {
         $.getJSON(options.url+"?callback=?").done(function(data) {
                 load_from($.extend({}, options, data));
