@@ -75,12 +75,13 @@ $.fn.showterm = function (options) {
             window.setTimeout(tick, timings[position + 1][0] * delay);
         }
     }
-    help_html = "<h3> Use following keyboard shortcuts for navigation: </h2> " + 
+    help_html = "<h3> Use following keyboard shortcuts for navigation: </h2> " +
         "<ul>" +
             "<li> Spacebar : Play/Pause playback</li>" +
             "<li> shift + left/right arrow : Rewind/Forward playback" +
             "<li> left/right arrow : Horizontal scroll" +
-            "<li> '[' and ']' : Slow down/speed up playback" +
+            "<li> '[' and ']' : Slow down/speed up playback if playing" +
+            "<li> = : Restore normal speed of playback if playing" +
             "<li> f : Toggle Full screen Mode" +
             "<li> ? : Show this help" +
             "<li> escape : Toggle full screen or Close this help if open" +
@@ -137,6 +138,9 @@ $.fn.showterm = function (options) {
         case 221: // ]
             modifySpeed(e.keyCode - 220)
             break;
+        case 187: // =
+            normalSpeed();
+            break;
         case 191:
             if(e.shiftKey) { // ? key
                 showHelp()
@@ -146,15 +150,23 @@ $.fn.showterm = function (options) {
             toggleFullscreen();
             break;
         default:
+            // uncomment for debugging
+            // console.log("key: " + e.keyCode)
             break;
         }
     })
+    function normalSpeed() {
+        if(paused) {
+            return
+        }
+        delay = 1000
+    }
     function modifySpeed(diff) {
         if(paused) {
             return
         }
         var d = delay - diff * 50
-        if(d >= 0) {
+        if(d > 0) {
             delay = d
             console.log("speed modified, new delay: " + delay)
         }
@@ -171,9 +183,7 @@ $.fn.showterm = function (options) {
 
         $that.find('.showterm-controls > a[href^=#]').click(function () {
             window.location.hash = this.href.split('#')[1];
-            if(window.location.hash == 'fast') {
-                delay = 500
-            }
+            delay = window.location.hash == 'fast' ? 500 : 1000
             if (paused) {
                 resume()
             }
