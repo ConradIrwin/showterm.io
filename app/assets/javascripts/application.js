@@ -12,5 +12,6 @@
 //
 //= require jquery
 //= require jquery-ui-1.11.4.custom.min
+//= require jquery.fullscreen-min
 //= require term
 //= require showterm
