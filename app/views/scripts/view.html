@@ -3,7 +3,6 @@
 </style>
 <script>
   $(document.body).showterm({
-   // FIXME... just using 'j' leaves everything HTML escaped too
    scriptfile: <%=raw_json @script.scriptfile %>,
    timingfile: <%=raw_json @script.timingfile %>,
    columns: <%= raw_json @script.cols %>,
