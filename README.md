@@ -3,11 +3,11 @@ This is the server backend for [showterm](https://github.com/ConradIrwin/showter
 It's hopefully available on the internet at
 [https://showterm.io](https://showterm.herokuapp.com).
 
-Private server
+Private server...
 ==============
 
 If you'd like to run your own showterm server it should "just work". For small
-installations you can use the builtin server that comes with rails in a few easy steps:
+installations you can use the builtin server that comes with rails in a few very easy steps:
 
 1. git clone https://github.com/ConradIrwin/showterm.io
 2. Set up a database (I've only tested postgres), and add a config/database.yml
