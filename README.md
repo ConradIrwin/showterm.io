@@ -1,3 +1,4 @@
+Helpful
 This is the server backend for [showterm](https://github.com/ConradIrwin/showterm).
 
 It's hopefully available on the internet at
