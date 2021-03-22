@@ -1,6 +1,7 @@
 class ScriptsController < ApplicationController
   respond_to :html, :json, :xml
   before_filter :load_script, only: [:view, :destroy]
+  skip_before_action :verify_authenticity_token, if: :json_request?
 
   def create
 
@@ -40,7 +41,13 @@ class ScriptsController < ApplicationController
     response.headers.except! 'X-Frame-Options'
 
     respond_with @script do |format|
-      format.json { render :json => @script.to_json, :callback => params[:callback] }
+      format.json {
+        if params[:callback]
+          render :json => @script.to_json, :callback => params[:callback], :content_type => 'text/javascript'
+        else
+          render :json => @script.to_json
+        end
+      }
     end
   end
 
@@ -73,6 +80,10 @@ class ScriptsController < ApplicationController
   end
 
   private
+
+  def json_request?
+    request.format.json?
+  end
 
   def load_script
     @script = Script.find_by_slug(params[:slug])
